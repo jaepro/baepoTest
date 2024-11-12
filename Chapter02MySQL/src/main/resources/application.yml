@@ -1,0 +1,17 @@
+# yml파일은 빈 공간, tab간격 등 간격이 엄청 중요하므로 신경써야 함!!!
+
+#Server port
+server:
+    port: 8080
+
+#MySQL
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+
+mybatis:
+    mapper-locations:  mapper/**/*Mapper.xml
+    type-aliases-package: user.bean

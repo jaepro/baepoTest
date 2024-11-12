@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원정보 수정</title>
+<link rel="stylesheet" href="/css/write.css">
+</head>
+<body>
+<div id="write-jsp">
+
+    <div id="right">
+        <a th:href="@{/}">
+            <img th:src="@{/image/mangom3.webp}" width="130" height="140" alt="mangom"/>
+        </a>
+        <div id="container">
+            <div id="edit-header">회원정보 수정</div>
+            <form name="userUpdateForm" id="userUpdateForm" th:action="@{/user/update}" th:method="post">
+               	
+                <table>
+                    <tr>
+                        <th class="label">이름</th>
+                        <td class="input">
+                            <input type="text" name="name" id="name" th:value="${userDTO.name}"/>
+                            <div id="nameDiv"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="label">아이디</th>
+                        <td class="input">
+                            <input type="text" name="id" id="id" th:value="${userDTO.id}" readonly/>
+                            <div id="idDiv"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="label">비밀번호</th>
+                        <td class="input">
+                            <input type="password" name="pwd" id="pwd" th:value="${userDTO.pwd}"/>
+                            <div id="pwdDiv"></div>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="2" height="20">
+                            <button type="button" id="listBtn" th:onclick="'location.href=\'/user/list\''">목록</button>
+                            <button type="button" id="updateBtn">수정</button>
+                            
+                            <!-- 회원탈퇴를 위한 form 추가 (DELETE 요청 전송) -->
+                            <form th:action="@{/user/delete}" method="post" style="display:inline;">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="id" th:value="${userDTO.id}"/>
+                                <input type="hidden" name="pwd" th:value="${userDTO.pwd}"/>
+                                <button type="submit" id="deleteBtn">회원탈퇴</button>
+                            </form>
+
+                            <button type="reset" id="resetBtn">초기화</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script th:src="@{/js/update.js}"></script>
+<script th:src="@{/js/delete.js}"></script>
+
+</body>
+</html>

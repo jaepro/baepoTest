@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원 목록</title>
+<link rel="stylesheet" href="/css/list.css">
+</head>
+<body>
+
+<a href="/">
+    <img src="../image/mangom3.webp" width="130" height="140" alt="mangom" />
+</a>
+
+<div class="container">
+    <h3>회원 목록</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>비밀번호</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="userDTO : ${list}">
+                <td th:text="${userDTO.name}">이름</td>
+                <td>
+                    <a th:href="@{/user/updateForm(id=${userDTO.id})}"
+                       th:text="${userDTO.id}">아이디</a>
+                </td>
+                <td th:text="${userDTO.pwd}">비밀번호</td>
+            </tr>
+        </tbody>
+    </table>
+</div><!-- container -->
+
+</body>
+</html>
