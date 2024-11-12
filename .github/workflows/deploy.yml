@@ -1,0 +1,32 @@
+name: 워크플로우 이름
+
+on:
+  # 이벤트 설정 (예: 푸시, 풀 리퀘스트 등)
+  push:
+    branches:
+      - main  # main 브랜치로 푸시될 때 트리거
+
+jobs:
+  baepo:
+    runs-on: ubuntu-latest  # 실행할 환경 (예: 우분투)
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # 리포지토리 코드를 체크아웃
+
+      - name: Set up MySQL credentials
+        env:
+          DB_USER: ${{ secrets.DB_USER }}  # GitHub secrets에서 값 가져오기
+          DB_PASS: ${{ secrets.DB_PASS }}
+        run: |
+          echo "DB_USER=${DB_USER}" >> .env
+          echo "DB_PASS=${DB_PASS}" >> .env
+
+      - name: Build project
+        run: |
+          # 프로젝트 빌드 명령어 (예: Gradle, Maven 등)
+          ./gradlew build
+
+      - name: Deploy application
+        run: |
+          # 배포 스크립트나 명령어 실행
+          ./deploy.sh
