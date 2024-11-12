@@ -1,7 +1,6 @@
 name: baepoyml
 
 on:
-  # 이벤트 설정 (예: 푸시, 풀 리퀘스트 등)
   push:
     branches:
       - main  # main 브랜치로 푸시될 때 트리거
@@ -9,9 +8,16 @@ on:
 jobs:
   baepo:
     runs-on: ubuntu-latest  # 실행할 환경 (예: 우분투)
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2  # 리포지토리 코드를 체크아웃
+
+      - name: Give execute permission to gradlew
+        run: chmod +x ./gradlew  # gradlew에 실행 권한 부여
+
+      - name: Give execute permission to deploy script
+        run: chmod +x ./deploy.sh  # deploy.sh에 실행 권한 부여
 
       - name: Set up MySQL credentials
         env:
@@ -23,10 +29,8 @@ jobs:
 
       - name: Build project
         run: |
-          # 프로젝트 빌드 명령어 (예: Gradle, Maven 등)
-          ./gradlew build
+          ./gradlew build  # Gradle로 프로젝트 빌드
 
       - name: Deploy application
         run: |
-          # 배포 스크립트나 명령어 실행
-          ./deploy.sh
+          ./deploy.sh  # 배포 스크립트 실행
